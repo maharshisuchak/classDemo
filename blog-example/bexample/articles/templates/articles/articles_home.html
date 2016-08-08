@@ -1,0 +1,70 @@
+{% extends 'articles/articles_base.html' %}
+
+{% block container %}
+<h3 class="title">All Articles</h3>
+<div class="collection">
+	{% for article in p %}
+		<a class="collection-item" href="{% url 'article-detail' article.id %}">{{article.title}} -- {{article.created}}</a>
+	{% endfor %}
+</div>
+<a class="btn right" href="{% url 'article-create' %}">Create Article</a>
+{{paginator.per_page}}
+{{paginator.object_list}}
+{% if is_paginated %}
+<ul class="pagination center-align">
+	{% if page_obj.has_previous %}
+	<li>
+		<span>
+			<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		</span>
+	</li>
+	{% endif %}
+	<li class="">
+		<span>
+			Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		</span>
+	</li>
+	{% if page_obj.has_next %}
+	<li>
+		<span>
+			<a href="?page={{ page_obj.next_page_number }}">
+				Next
+			</a>
+		</span>
+	</li>
+	{% endif %}
+</ul>
+{% endif %}
+
+<!-- {% if is_paginated %}
+<ul class="pagination center-align">
+	{% if page_obj.has_previous %}
+	<li class="waves-effect">
+		<span>
+			<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		</span>
+	</li>
+	{% endif %}
+
+	{% for i in range%}
+	<li >
+		<span>
+			Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+			<a href="?page={{forloop.counter}}">{{ page_obj.number }}</a>
+		</span>
+	</li>
+	{% endfor %}
+
+	{% if page_obj.has_next %}
+	<li class="waves-effect">
+		<span>
+			<a href="?page={{ page_obj.next_page_number }}">
+				Next
+			</a>
+		</span>
+	</li>
+	{% endif %}
+</ul>
+{% endif %} -->
+
+{% endblock %}
